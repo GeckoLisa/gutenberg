@@ -13,13 +13,13 @@ import { URLInput } from '../';
 
 const LinkControlInputSearch = ( {
 	value,
-    onChange,
-    onSelect,
-    renderSuggestions,
-    fetchSuggestions,
-    onReset,
-    onKeyDown,
-    onKeyPress,
+	onChange,
+	onSelect,
+	renderSuggestions,
+	fetchSuggestions,
+	onReset,
+	onKeyDown,
+	onKeyPress,
 } ) => {
 	return (
 		<form>
@@ -35,9 +35,9 @@ const LinkControlInputSearch = ( {
 				} }
 				onKeyPress={ onKeyPress }
 				placeholder={ __( 'Search or type url' ) }
-				renderSuggestions={ renderSuggestions }
-				fetchLinkSuggestions={ fetchSuggestions }
-				handleURLSuggestions={ true }
+				__experimentalRenderSuggestions={ renderSuggestions }
+				__experimentalFetchLinkSuggestions={ fetchSuggestions }
+				__experimentalHandleURLSuggestions={ true }
 			/>
 
 			<IconButton
