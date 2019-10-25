@@ -45,12 +45,14 @@ function NavigationMenuItemEdit( {
 	setAttributes,
 	fetchSearchSuggestions,
 } ) {
+	const { label, link } = attributes;
+
 	const plainTextRef = useRef( null );
 	const [ isLinkOpen, setIsLinkOpen ] = useState( false );
-	const [ isEditingLink, setIsEditingLink ] = useState( false );
-	const [ urlInput, setUrlInput ] = useState( null );
 
-	const inputValue = urlInput !== null ? urlInput : url;
+	const [ currentLink, setLink ] = useState();
+	const initialLinkSetting = { 'new-tab': false };
+	const [ linkSettings, setLinkSettings ] = useState( initialLinkSetting );
 
 	const handleLinkControlOnKeyDown = ( event ) => {
 		const { keyCode } = event;
@@ -62,12 +64,10 @@ function NavigationMenuItemEdit( {
 	};
 
 	const closeLinkControl = () => {
-		setIsEditingLink( false );
-		setUrlInput( null );
+		setLinkSettings( initialLinkSetting );
 		setIsLinkOpen( false );
 	};
 
-	const { label, url } = attributes;
 	let content;
 	if ( isSelected ) {
 		content = (
@@ -104,6 +104,15 @@ function NavigationMenuItemEdit( {
 							onKeyDown={ handleLinkControlOnKeyDown }
 							onKeyPress={ ( event ) => { event.stopPropagation() } }
 							onClose={ closeLinkControl }
+							currentLink={ currentLink }
+							onLinkChange={ ( theLink ) => setLink( theLink ) }
+							currentSettings={ linkSettings }
+							onSettingsChange={ ( setting, value ) => {
+								setLinkSettings( {
+									...linkSettings,
+									[ setting ]: value,
+								} );
+							} }
 							fetchSearchSuggestions={ fetchSearchSuggestions }
 						/>
 					}
