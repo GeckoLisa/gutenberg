@@ -27,12 +27,25 @@ const LinkControlInputSearch = ( {
     onKeyDown,
     onKeyPress,
 } ) => {
+	const selectItemHandler = ( value, suggestion ) => {
+		onChange( value );
+
+		if ( suggestion ) {
+			onSelect( suggestion );
+		}
+	};
+
+	const stopFormEventsPropagation = event => {
+		event.preventDefault();
+		event.stopPropagation();
+	};
+
 	return (
 		<form
-			onSubmit={ event => event.preventDefault() }
+			onSubmit={ stopFormEventsPropagation }
 			onKeyDown={ ( event ) => {
 				if ( event.keyCode === ENTER ) {
-					// onSelect( suggestion )( event );
+					return;
 				}
 				onKeyDown( event );
 			} }
@@ -41,7 +54,7 @@ const LinkControlInputSearch = ( {
 			<URLInput
 				className="block-editor-link-control__search-input"
 				value={ value }
-				onChange={ onChange }
+				onChange={ selectItemHandler }
 				placeholder={ __( 'Search or type url' ) }
 				renderSuggestions={ renderSuggestions }
 				fetchLinkSuggestions={ fetchSuggestions }

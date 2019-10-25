@@ -47,10 +47,10 @@ function LinkControl( {
 	instanceId,
 
 	onClose = noop,
-	onLinkChange,
+	onLinkChange = noop,
 	onKeyDown = noop,
 	onKeyPress = noop,
-	onSettingChange = { noop },
+	onSettingsChange = { noop },
 } ) {
 	// State
 	const [ inputValue, setInputValue ] = useState( '' );
@@ -67,17 +67,14 @@ function LinkControl( {
 	}, [ currentLink ] );
 
 	// Handlers
-	const onInputChange = ( value = '' ) => {
+
+	/**
+	 * onChange LinkControlInputSearch event handler
+	 * @param {string} value Current value returned by the search.
+	 * @param {object} suggestion data object (post, page, ...) is it has been selected.
+	 */
+	const onInputChange = ( value = '', suggestion ) => {
 		setInputValue( value );
-	};
-
-	const onLinkSelect = ( suggestion ) => ( event ) => {
-		event.preventDefault();
-		event.stopPropagation();
-
-		if ( isFunction( onLinkChange ) ) {
-			onLinkChange( suggestion );
-		}
 	};
 
 	// Utils
@@ -160,7 +157,7 @@ function LinkControl( {
 							key={ `${ suggestion.id }-${ suggestion.type }` }
 							itemProps={ buildSuggestionItemProps( suggestion, index ) }
 							suggestion={ suggestion }
-							onClick={ onLinkSelect( suggestion ) }
+							onClick={ () => onLinkChange( suggestion ) }
 							isSelected={ index === selectedSuggestion }
 							isURL={ suggestion.type.toLowerCase() === 'url' }
 							searchTerm={ inputValue }
@@ -215,7 +212,7 @@ function LinkControl( {
 						<LinkControlInputSearch
 							value={ inputValue }
 							onChange={ onInputChange }
-							onSelect={ onLinkSelect }
+							onSelect={ onLinkChange }
 							renderSuggestions={ renderSearchResults }
 							fetchSuggestions={ getSearchHandler }
 							onReset={ resetInput }
@@ -225,7 +222,7 @@ function LinkControl( {
 					) }
 
 					{ ! isEditingLink && (
-						<LinkControlSettingsDrawer settings={ currentSettings } onSettingChange={ onSettingChange } />
+						<LinkControlSettingsDrawer settings={ currentSettings } onSettingChange={ onSettingsChange } />
 					) }
 				</div>
 			</div>
