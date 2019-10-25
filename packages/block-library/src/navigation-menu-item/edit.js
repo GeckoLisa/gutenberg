@@ -67,16 +67,6 @@ function NavigationMenuItemEdit( {
 		setIsLinkOpen( false );
 	};
 
-	const autocompleteRef = useRef( null );
-
-	const onFocusOutside = ( event ) => {
-		const autocompleteElement = autocompleteRef.current;
-		if ( autocompleteElement && autocompleteElement.contains( event.target ) ) {
-			return;
-		}
-		closeLinkControl();
-	};
-
 	const { label, url } = attributes;
 	let content;
 	if ( isSelected ) {
@@ -113,7 +103,7 @@ function NavigationMenuItemEdit( {
 							className="wp-block-navigation-menu-item__inline-link-input"
 							onKeyDown={ handleLinkControlOnKeyDown }
 							onKeyPress={ ( event ) => { event.stopPropagation() } }
-							onClose={ onFocusOutside }
+							onClose={ closeLinkControl }
 							fetchSearchSuggestions={ fetchSearchSuggestions }
 						/>
 					}
