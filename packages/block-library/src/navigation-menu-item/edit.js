@@ -46,11 +46,10 @@ function NavigationMenuItemEdit( {
 	fetchSearchSuggestions,
 } ) {
 	const { label, link } = attributes;
-
 	const plainTextRef = useRef( null );
 	const [ isLinkOpen, setIsLinkOpen ] = useState( false );
 
-	const [ currentLink, setLink ] = useState();
+	const [ currentLink, setLink ] = useState( link );
 	const initialLinkSetting = { 'new-tab': false };
 	const [ linkSettings, setLinkSettings ] = useState( initialLinkSetting );
 
