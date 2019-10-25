@@ -46,12 +46,10 @@ function NavigationMenuItemEdit( {
 	fetchSearchSuggestions,
 } ) {
 	const { label, link } = attributes;
+	const initialLinkSetting = { 'new-tab': link.newTab };
+
 	const plainTextRef = useRef( null );
 	const [ isLinkOpen, setIsLinkOpen ] = useState( false );
-
-	const [ currentLink, setLink ] = useState( link );
-	const initialLinkSetting = { 'new-tab': link.newTab };
-	const [ linkSettings, setLinkSettings ] = useState( initialLinkSetting );
 
 	const handleLinkControlOnKeyDown = ( event ) => {
 		const { keyCode } = event;
@@ -62,27 +60,12 @@ function NavigationMenuItemEdit( {
 		}
 	};
 
-	const closeLinkControl = () => {
-		setLinkSettings( initialLinkSetting );
-		setIsLinkOpen( false );
-	};
-
-	const updateLink = ( link ) => {
-		setAttributes( { link } );
-		setLink( link );
-	};
+	const closeLinkControl = () => setIsLinkOpen( false );
 
 	const updateLinkSetting = ( setting, value ) => {
-		setLinkSettings( {
-			...linkSettings,
-			[ setting ]: value,
-		} );
-
-		const newTab = true;
+		const newTab = 'new-tab' === setting ? value : link.newTab;
 		setAttributes( { link: { ...link, newTab } } );
 	};
-
-
 
 	let content;
 	if ( isSelected ) {
@@ -120,9 +103,9 @@ function NavigationMenuItemEdit( {
 							onKeyDown={ handleLinkControlOnKeyDown }
 							onKeyPress={ ( event ) => { event.stopPropagation() } }
 							onClose={ closeLinkControl }
-							currentLink={ currentLink }
-							onLinkChange={ updateLink }
-							currentSettings={ linkSettings }
+							currentLink={ link }
+							onLinkChange={ ( link ) => setAttributes( { link } ) }
+							currentSettings={ initialLinkSetting }
 							onSettingsChange={ updateLinkSetting }
 							fetchSearchSuggestions={ fetchSearchSuggestions }
 						/>
