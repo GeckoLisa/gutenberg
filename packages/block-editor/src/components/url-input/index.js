@@ -138,11 +138,6 @@ class URLInput extends Component {
 	onKeyDown( event ) {
 		const { showSuggestions, selectedSuggestion, suggestions, loading } = this.state;
 
-		// Trigger `onKeyDown` event, passing the selected suggestion besides the event class.
-		if ( isFunction( this.props.__experimentalOnKeyDown ) ) {
-			this.props.__experimentalOnKeyDown( event, selectedSuggestion );
-		}
-
 		// If the suggestions are not shown or loading, we shouldn't handle the arrow keys
 		// We shouldn't preventDefault to allow block arrow keys navigation
 		if ( ! showSuggestions || ! suggestions.length || loading ) {
@@ -257,7 +252,6 @@ class URLInput extends Component {
 			isFullWidth,
 			hasBorder,
 			__experimentalRenderSuggestions,
-			__experimentalOnKeyPress,
 			placeholder = __( 'Paste URL or type to search' ),
 			value = '',
 			autoFocus = true,
@@ -306,7 +300,6 @@ class URLInput extends Component {
 					onInput={ stopEventPropagation }
 					placeholder={ placeholder }
 					onKeyDown={ this.onKeyDown }
-					onKeyPress={ isFunction( __experimentalOnKeyPress ) ? __experimentalOnKeyPress : undefined }
 					role="combobox"
 					aria-expanded={ showSuggestions }
 					aria-autocomplete="list"

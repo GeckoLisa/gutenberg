@@ -4,7 +4,6 @@
  */
 import { __ } from '@wordpress/i18n';
 import { IconButton } from '@wordpress/components';
-import { ENTER } from '@wordpress/keycodes';
 
 /**
  * Internal dependencies
@@ -14,12 +13,9 @@ import { URLInput } from '../';
 const LinkControlInputSearch = ( {
 	value,
 	onChange,
-	onSelect,
 	renderSuggestions,
 	fetchSuggestions,
 	onReset,
-	onKeyDown,
-	onKeyPress,
 } ) => {
 	return (
 		<form>
@@ -27,13 +23,6 @@ const LinkControlInputSearch = ( {
 				className="block-editor-link-control__search-input"
 				value={ value }
 				onChange={ onChange }
-				__experimentalOnKeyDown={ ( event, suggestion ) => {
-					if ( event.keyCode === ENTER ) {
-						onSelect( suggestion )( event );
-					}
-					onKeyDown( event, suggestion );
-				} }
-				__experimentalOnKeyPress={ onKeyPress }
 				placeholder={ __( 'Search or type url' ) }
 				__experimentalRenderSuggestions={ renderSuggestions }
 				__experimentalFetchLinkSuggestions={ fetchSuggestions }
