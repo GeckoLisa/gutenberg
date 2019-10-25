@@ -27,7 +27,7 @@ const LinkControlInputSearch = ( {
 				className="block-editor-link-control__search-input"
 				value={ value }
 				onChange={ onChange }
-				onKeyDown={ ( event, suggestion ) => {
+				__experimentalOnKeyDown={ ( event, suggestion ) => {
 					if ( event.keyCode === ENTER ) {
 						onSelect( suggestion )( event );
 					}

@@ -139,8 +139,8 @@ class URLInput extends Component {
 		const { showSuggestions, selectedSuggestion, suggestions, loading } = this.state;
 
 		// Trigger `onKeyDown` event, passing the selected suggestion besides the event class.
-		if ( this.props.onKeyDown ) {
-			this.props.onKeyDown( event, selectedSuggestion );
+		if ( isFunction( this.props.__experimentalOnKeyDown ) ) {
+			this.props.__experimentalOnKeyDown( event, selectedSuggestion );
 		}
 
 		// If the suggestions are not shown or loading, we shouldn't handle the arrow keys
