@@ -23,7 +23,6 @@ import {
 	DOWN,
 	BACKSPACE,
 	ENTER,
-	ESCAPE,
 } from '@wordpress/keycodes';
 import { __ } from '@wordpress/i18n';
 import {
@@ -59,10 +58,6 @@ function NavigationMenuItemEdit( {
 		if ( [ LEFT, DOWN, RIGHT, UP, BACKSPACE, ENTER ].indexOf( keyCode ) > -1 ) {
 			// Stop the key event from propagating up to ObserveTyping.startTypingInTextField.
 			event.stopPropagation();
-		}
-
-		if ( ESCAPE === keyCode ) {
-			closeLinkControl ();
 		}
 	};
 

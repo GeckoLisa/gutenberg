@@ -32,7 +32,6 @@ import {
 import { withInstanceId, compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 
-
 /**
  * Internal dependencies
  */
