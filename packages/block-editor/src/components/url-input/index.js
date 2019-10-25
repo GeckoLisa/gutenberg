@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { throttle, isFunction, noop } from 'lodash';
+import { throttle, isFunction } from 'lodash';
 import classnames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 
@@ -257,6 +257,7 @@ class URLInput extends Component {
 			isFullWidth,
 			hasBorder,
 			__experimentalRenderSuggestions,
+			__experimentalOnKeyPress,
 			placeholder = __( 'Paste URL or type to search' ),
 			value = '',
 			autoFocus = true,
@@ -305,7 +306,7 @@ class URLInput extends Component {
 					onInput={ stopEventPropagation }
 					placeholder={ placeholder }
 					onKeyDown={ this.onKeyDown }
-					onKeyPress={ this.props.onKeyPress || noop }
+					onKeyPress={ isFunction( __experimentalOnKeyPress ) ? __experimentalOnKeyPress : undefined }
 					role="combobox"
 					aria-expanded={ showSuggestions }
 					aria-autocomplete="list"

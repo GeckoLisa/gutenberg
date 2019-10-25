@@ -33,7 +33,7 @@ const LinkControlInputSearch = ( {
 					}
 					onKeyDown( event, suggestion );
 				} }
-				onKeyPress={ onKeyPress }
+				__experimentalOnKeyPress={ onKeyPress }
 				placeholder={ __( 'Search or type url' ) }
 				__experimentalRenderSuggestions={ renderSuggestions }
 				__experimentalFetchLinkSuggestions={ fetchSuggestions }
